@@ -567,7 +567,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Investment",
+					"name": "Buy Investment",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -587,12 +587,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/investments",
+							"raw": "{{baseURL}}/investments/buy",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"investments"
+								"investments",
+								"buy"
 							]
 						}
 					},
@@ -600,6 +601,44 @@
 				},
 				{
 					"name": "Sell Investment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"investmentId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/investments/sell",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"investments",
+								"sell"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Balance",
+			"item": [
+				{
+					"name": "Get balance",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -610,14 +649,44 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseURL}}/investments/4/sell",
+							"raw": "{{baseURL}}/balance",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"investments",
-								"4",
-								"sell"
+								"balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Operate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //\"operation\": \"deposit\",\r\n    \"operation\": \"withdraw\",\r\n    \"value\": 1200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/balance",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"balance"
 							]
 						}
 					},
