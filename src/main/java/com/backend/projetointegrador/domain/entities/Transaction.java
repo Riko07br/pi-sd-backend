@@ -23,6 +23,5 @@ public class Transaction {
     private Instant timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "balance_id")
     private Balance balance;
 }
