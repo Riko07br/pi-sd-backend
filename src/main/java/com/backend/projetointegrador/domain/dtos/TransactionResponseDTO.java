@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public record TransactionResponseDTO(
         Long id,
-        float value,
+        Float value,
         String type,
         Instant timestamp
 ) {

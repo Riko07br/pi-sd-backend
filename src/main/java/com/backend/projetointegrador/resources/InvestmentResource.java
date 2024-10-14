@@ -50,8 +50,9 @@ public class InvestmentResource {
     }
 
     @PostMapping("/sell")
-    public ResponseEntity<InvestmentResponseDTO> sell(@RequestBody InvestmentSellRequestDTO investmentSellRequestDTO) {
-        InvestmentResponseDTO responseDTO = investmentService.sell(investmentSellRequestDTO);
+    public ResponseEntity<InvestmentResponseDTO> sell(@RequestBody InvestmentSellRequestDTO investmentSellRequestDTO,
+                                                      Authentication authentication) {
+        InvestmentResponseDTO responseDTO = investmentService.sell(investmentSellRequestDTO, authentication);
         return ResponseEntity.ok().body(responseDTO);
     }
 }

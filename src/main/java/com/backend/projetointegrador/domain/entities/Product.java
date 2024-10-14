@@ -6,12 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +32,8 @@ public class Product implements Serializable {
     private Float dailyYield;
 
     @OneToMany(mappedBy = "product")
-    private Set<Investment> investments;
+    @Setter(AccessLevel.NONE)
+    private Set<Investment> investments = new HashSet<>();
 
     public Product(Long id, String name, Float dailyYield) {
         this.id = id;

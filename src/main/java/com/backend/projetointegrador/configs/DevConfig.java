@@ -4,11 +4,14 @@ import com.backend.projetointegrador.domain.entities.Account;
 import com.backend.projetointegrador.domain.entities.Investment;
 import com.backend.projetointegrador.domain.entities.Product;
 import com.backend.projetointegrador.domain.entities.Role;
+import com.backend.projetointegrador.domain.entities.Transaction;
 import com.backend.projetointegrador.domain.entities.User;
 import com.backend.projetointegrador.repositories.AccountRepository;
+import com.backend.projetointegrador.repositories.BalanceRepository;
 import com.backend.projetointegrador.repositories.InvestmentRepository;
 import com.backend.projetointegrador.repositories.ProductRepository;
 import com.backend.projetointegrador.repositories.RoleRepository;
+import com.backend.projetointegrador.repositories.TransactionRepository;
 import com.backend.projetointegrador.repositories.UserRepository;
 import com.backend.projetointegrador.security.SecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ public class DevConfig implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
+    private TransactionRepository transactionRepository;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private SecurityConfiguration securityConfiguration;
@@ -49,9 +54,16 @@ public class DevConfig implements CommandLineRunner {
         User u5 = userRepository.save(new User(null, "user5@mail.com", password, clientRole));
         User u6 = userRepository.save(new User(null, "user6@mail.com", password, clientRole));
 
-        Account acc1 = accountRepository.save(new Account(null, "Cliente da Silva", "123456", 1800f, u3));
-        Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", 4200f, u4));
-        Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", 876f, u5));
+        Account acc1 = accountRepository.save(new Account(null, "Cliente da Silva", "123456", 0f, u3));
+        Transaction t1 = new Transaction(null, 1020f, "DEPOSIT");
+        transactionRepository.save(t1);
+        t1.setBalance(acc1.getBalance());
+        t1.getBalance().addBalance(1020f);
+        transactionRepository.save(t1);
+        Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", 0f, u4));
+        //transactionRepository.save(new Transaction(null, 4800f, "DEPOSIT", acc2.getBalance()));
+        Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", 0f, u5));
+        //transactionRepository.save(new Transaction(null, 10000f, "DEPOSIT", acc3.getBalance()));
 
         Product p1 = productRepository.save(new Product(null, "Pix Buzzard 30 dias", .001f));
         Product p2 = productRepository.save(new Product(null, "Pix Buzzard 60 dias", .0015f));

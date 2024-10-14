@@ -29,13 +29,13 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "password",
-									"value": "123456",
+									"key": "username",
+									"value": "user3@mail.com",
 									"type": "string"
 								},
 								{
-									"key": "username",
-									"value": "user1@mail.com",
+									"key": "password",
+									"value": "123456",
 									"type": "string"
 								}
 							]
@@ -659,9 +659,61 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "FindAll transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/transactions",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "Operate",
+					"name": "FindById transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/transactions/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposit",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -673,7 +725,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    //\"operation\": \"deposit\",\r\n    \"operation\": \"withdraw\",\r\n    \"value\": 1200\r\n}",
+							"raw": "{\r\n    \"type\": \"DEPOSIT\",\r\n    \"value\": 1200,\r\n    \"description\": \"Pix deposit\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -681,12 +733,44 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/balance",
+							"raw": "{{baseURL}}/transactions",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"balance"
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"WITHDRAW\",\r\n    \"value\": 400,\r\n    \"description\": \"Pix withdraw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/transactions",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"transactions"
 							]
 						}
 					},

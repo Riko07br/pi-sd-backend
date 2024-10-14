@@ -1,6 +1,5 @@
 package com.backend.projetointegrador.services;
 
-import com.backend.projetointegrador.domain.dtos.BalanceRequestDTO;
 import com.backend.projetointegrador.domain.dtos.BalanceResponseDTO;
 import com.backend.projetointegrador.domain.entities.Balance;
 import com.backend.projetointegrador.domain.mappers.BalanceMapper;
@@ -19,25 +18,6 @@ public class BalanceService {
         Balance balance = findEntityByAccountUserEmail(authentication.getName());
         return BalanceMapper.toResponseDTO(balance);
     }
-
-    public BalanceResponseDTO operate(Authentication authentication, BalanceRequestDTO requestDTO) {
-        Balance balance = findEntityByAccountUserEmail(authentication.getName());
-        switch (requestDTO.operation()) {
-            case "deposit":
-                balance.addBalance(requestDTO.value());
-                break;
-            case "withdraw":
-                balance.subtractBalance(requestDTO.value());
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid operation");
-        }
-
-        balanceRepository.save(balance);
-
-        return BalanceMapper.toResponseDTO(balance);
-    }
-
 
     Balance findEntityByAccountUserEmail(String email) {
         return balanceRepository.findByAccountUserEmail(email)
