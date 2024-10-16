@@ -11,6 +11,8 @@ import com.backend.projetointegrador.services.exceptions.ResourceNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,9 @@ public class AccountService {
 
     private final UserService userService;
 
-    public List<AccountResponseDTO> findAll() {
+    public Page<AccountResponseDTO> findAll(Pageable pageable) {
         //TODO add pagination
-        return accountRepository.findAll().stream().map(account -> AccountMapper.toResponseDTO(account)).toList();
+        return accountRepository.findAll(pageable).map(AccountMapper::toResponseDTO);
     }
 
     public AccountResponseDTO findById(Long id) {

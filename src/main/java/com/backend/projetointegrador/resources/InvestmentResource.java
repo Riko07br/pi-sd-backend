@@ -5,6 +5,9 @@ import com.backend.projetointegrador.domain.dtos.InvestmentResponseDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentSellRequestDTO;
 import com.backend.projetointegrador.services.InvestmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -26,9 +30,15 @@ public class InvestmentResource {
     private final InvestmentService investmentService;
 
     @GetMapping
-    public ResponseEntity<List<InvestmentResponseDTO>> findAll(Authentication authentication) {
-        return ResponseEntity.ok().body(investmentService.findAll(authentication));
+    public ResponseEntity<Page<InvestmentResponseDTO>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            Authentication authentication) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<InvestmentResponseDTO> investments = investmentService.findAll(authentication, pageable);
+        return ResponseEntity.ok().body(investments);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<InvestmentResponseDTO> findById(@PathVariable Long id) {

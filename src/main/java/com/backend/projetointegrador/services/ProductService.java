@@ -9,18 +9,18 @@ import com.backend.projetointegrador.services.exceptions.ResourceNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<ProductResponseDTO> findAll() {
-        return productRepository.findAll().stream()
-                .map(entity -> ProductMapper.toResponseDTO(entity)).toList();
+    public Page<ProductResponseDTO> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable)
+                .map(ProductMapper::toResponseDTO);
     }
 
     public ProductResponseDTO findById(Long id) {
