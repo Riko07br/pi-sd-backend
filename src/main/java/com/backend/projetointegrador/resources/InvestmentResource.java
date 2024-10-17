@@ -30,11 +30,7 @@ public class InvestmentResource {
     private final InvestmentService investmentService;
 
     @GetMapping
-    public ResponseEntity<Page<InvestmentResponseDTO>> findAll(
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size,
-            Authentication authentication) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponseEntity<Page<InvestmentResponseDTO>> findAll(Authentication authentication, Pageable pageable) {
         Page<InvestmentResponseDTO> investments = investmentService.findAll(authentication, pageable);
         return ResponseEntity.ok().body(investments);
     }
