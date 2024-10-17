@@ -13,6 +13,8 @@ import com.backend.projetointegrador.services.exceptions.ResourceNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +30,17 @@ public class InvestmentService {
     private final UserService userService;
     private final ProductService productService;
 
-    public List<InvestmentResponseDTO> findAll(Authentication authentication) {
+    public Page<InvestmentResponseDTO> findAll(Authentication authentication, Pageable pageable) {
         Long accountId = userService.findEntityByEmail(authentication.getName()).getAccount().getId();
-        return investmentRepository.findByAccountId(accountId)
-                .stream()
-                .peek(investment -> {
+        return investmentRepository.findByAccountId(accountId, pageable)
+                .map(investment -> {
                     if (!investment.getIsSold()) {
                         investment.setSellPrice(estimateSellPrice(investment));
                     }
-                })
-                .map(entity -> InvestmentMapper.toResponseDTO(entity)).toList();
+                    return InvestmentMapper.toResponseDTO(investment);
+                });
     }
+
 
     public InvestmentResponseDTO findById(Long id) {
         Investment investment = findEntityById(id);

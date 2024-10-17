@@ -11,6 +11,8 @@ import com.backend.projetointegrador.services.exceptions.ResourceNotFoundExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +25,9 @@ public class UserService {
 
     private final RoleService roleService;
 
-    public List<UserResponseDTO> findAll() {
+    public Page<UserResponseDTO> findAll(Pageable pageable) {
         //TODO add pagination
-        return userRepository.findAll().stream().map(user -> UserMapper.toResponseDTO(user)).toList();
+        return userRepository.findAll(pageable).map(UserMapper::toResponseDTO);
     }
 
     public UserResponseDTO findById(Long id) {
