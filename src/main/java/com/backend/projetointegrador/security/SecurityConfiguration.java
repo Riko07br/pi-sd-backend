@@ -19,7 +19,11 @@ public class SecurityConfiguration {
                 .addFilterBefore(new JWTValidatorFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new JWTGeneratorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/h2-console/**").permitAll()
+                        .requestMatchers(
+                                "/auth/register",
+                                "/auth/probe",
+                                "/h2-console/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

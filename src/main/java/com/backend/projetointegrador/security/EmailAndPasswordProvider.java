@@ -27,8 +27,6 @@ public class EmailAndPasswordProvider implements AuthenticationProvider {
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        System.out.println(user.getPassword());
-        System.out.println(passwordEncoder.encode(user.getPassword()));
         if (passwordEncoder.matches(password, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(email, password, getAuthorities(user));
         }
