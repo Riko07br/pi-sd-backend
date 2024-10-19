@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -13,7 +14,9 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -31,8 +34,9 @@ public class Balance implements Serializable {
 
     @OneToOne
     private Account account;
-//    @OneToMany(mappedBy = "balance")
-//    private Set<Transaction> transactions;
+    @OneToMany(mappedBy = "balance")
+    @Setter(AccessLevel.NONE)
+    private Set<Transaction> transactions = new HashSet<>();
 
     public Balance(Float amount, Account account) {
         this.amount = amount;

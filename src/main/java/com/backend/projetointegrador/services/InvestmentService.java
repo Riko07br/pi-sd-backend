@@ -3,6 +3,7 @@ package com.backend.projetointegrador.services;
 import com.backend.projetointegrador.domain.dtos.InvestmentBuyRequestDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentResponseDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentSellRequestDTO;
+import com.backend.projetointegrador.domain.dtos.TransactionRequestDTO;
 import com.backend.projetointegrador.domain.entities.Account;
 import com.backend.projetointegrador.domain.entities.Investment;
 import com.backend.projetointegrador.domain.entities.Product;
@@ -29,6 +30,7 @@ public class InvestmentService {
 
     private final UserService userService;
     private final ProductService productService;
+    private final TransactionService transactionService;
 
     public Page<InvestmentResponseDTO> findAll(Authentication authentication, Pageable pageable) {
         Long accountId = userService.findEntityByEmail(authentication.getName()).getAccount().getId();
@@ -69,15 +71,17 @@ public class InvestmentService {
         }
 
         Product product = productService.findEntityById(requestDTO.productId());
-        account.getBalance().subtractBalance(requestDTO.buyPrice());
-        Investment investment = new Investment(null, requestDTO.buyPrice(), account, product);
+        transactionService.create(
+                new TransactionRequestDTO(requestDTO.buyPrice(), "BUY_INVESTMENT", "Add investment bought later"),
+                authentication);
 
+        Investment investment = new Investment(null, requestDTO.buyPrice(), account, product);
         investment = investmentRepository.save(investment);
         return InvestmentMapper.toResponseDTO(investment);
     }
 
     //TODO add validation on endpoint to check if investment belongs to user
-    public InvestmentResponseDTO sell(InvestmentSellRequestDTO requestDTO) {
+    public InvestmentResponseDTO sell(InvestmentSellRequestDTO requestDTO, Authentication authentication) {
         Investment investment = findEntityById(requestDTO.investmentId());
         if (investment.getIsSold()) {
             throw new InvalidArgsException("Investment already sold");
@@ -86,7 +90,10 @@ public class InvestmentService {
         investment.setSellPrice(estimateSellPrice(investment));
         investment.setSellTime(Instant.now());
         investment.setIsSold(true);
-        investment.getAccount().getBalance().addBalance(investment.getSellPrice());
+
+        transactionService.create(
+                new TransactionRequestDTO(investment.getSellPrice(), "SELL_INVESTMENT", "Add investment sold later"),
+                authentication);
         investmentRepository.save(investment);
 
         return InvestmentMapper.toResponseDTO(investment);
