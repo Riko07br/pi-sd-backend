@@ -4,6 +4,8 @@ import com.backend.projetointegrador.domain.dtos.UserRequestDTO;
 import com.backend.projetointegrador.domain.dtos.UserResponseDTO;
 import com.backend.projetointegrador.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,8 @@ public class UserResource {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> findAll() {
-        List<UserResponseDTO> users = userService.findAll();
+    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
+        Page<UserResponseDTO> users = userService.findAll(pageable);
         return ResponseEntity.ok().body(users);
     }
 

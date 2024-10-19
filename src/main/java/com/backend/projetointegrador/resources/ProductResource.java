@@ -4,6 +4,8 @@ import com.backend.projetointegrador.domain.dtos.ProductRequestDTO;
 import com.backend.projetointegrador.domain.dtos.ProductResponseDTO;
 import com.backend.projetointegrador.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,8 @@ public class ProductResource {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> findAll() {
-        List<ProductResponseDTO> responseDTO = productService.findAll();
+    public ResponseEntity<Page<ProductResponseDTO>> findAll(Pageable pageable) {
+        Page<ProductResponseDTO> responseDTO = productService.findAll(pageable);
         return ResponseEntity.ok().body(responseDTO);
     }
 
