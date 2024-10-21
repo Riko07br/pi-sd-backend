@@ -1,5 +1,6 @@
 package com.backend.projetointegrador.services;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.AccountRequestDTO;
 import com.backend.projetointegrador.domain.dtos.AccountResponseDTO;
 import com.backend.projetointegrador.domain.entities.Account;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -25,8 +27,8 @@ public class AccountService {
 
     private final UserService userService;
 
-    public Page<AccountResponseDTO> findAll(Pageable pageable) {
-        //TODO add pagination
+    public Page<AccountResponseDTO> findAll(PaginationParams paginationParams) {
+        Pageable pageable = PageRequest.of(paginationParams.getPage(), paginationParams.getSize());
         return accountRepository.findAll(pageable).map(AccountMapper::toResponseDTO);
     }
 

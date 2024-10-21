@@ -1,5 +1,6 @@
 package com.backend.projetointegrador.services;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.ProductRequestDTO;
 import com.backend.projetointegrador.domain.dtos.ProductResponseDTO;
 import com.backend.projetointegrador.domain.entities.Product;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,8 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Page<ProductResponseDTO> findAll(Pageable pageable) {
+    public Page<ProductResponseDTO> findAll(PaginationParams paginationParams) {
+        Pageable pageable = PageRequest.of(paginationParams.getPage(), paginationParams.getSize());
         return productRepository.findAll(pageable)
                 .map(ProductMapper::toResponseDTO);
     }
