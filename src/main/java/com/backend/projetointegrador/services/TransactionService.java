@@ -8,6 +8,8 @@ import com.backend.projetointegrador.domain.mappers.TransactionMapper;
 import com.backend.projetointegrador.repositories.TransactionRepository;
 import com.backend.projetointegrador.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,9 @@ public class TransactionService {
 
     private final BalanceService balanceService;
 
-    public List<TransactionResponseDTO> findAll(Authentication authentication) {
-        return transactionRepository.findByBalanceAccountUserEmail(authentication.getName())
-                .stream()
-                .map(transaction -> TransactionMapper.toResponseDTO(transaction))
-                .toList();
+    public Page<TransactionResponseDTO> findAll(Pageable pageable, Authentication authentication) {
+        return transactionRepository.findByBalanceAccountUserEmail(authentication.getName(), pageable)
+                .map(transaction -> TransactionMapper.toResponseDTO(transaction));
     }
 
     public TransactionResponseDTO findById(Long id) {

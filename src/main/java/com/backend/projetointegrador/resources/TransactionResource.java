@@ -4,6 +4,8 @@ import com.backend.projetointegrador.domain.dtos.TransactionRequestDTO;
 import com.backend.projetointegrador.domain.dtos.TransactionResponseDTO;
 import com.backend.projetointegrador.services.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,8 @@ public class TransactionResource {
     private final TransactionService transactionService;
 
     @GetMapping
-    public ResponseEntity<List<TransactionResponseDTO>> findAll(Authentication authentication) {
-        List<TransactionResponseDTO> transactions = transactionService.findAll(authentication);
+    public ResponseEntity<Page<TransactionResponseDTO>> findAll(Pageable pageable, Authentication authentication) {
+        Page<TransactionResponseDTO> transactions = transactionService.findAll(pageable, authentication);
         return ResponseEntity.ok().body(transactions);
     }
 
