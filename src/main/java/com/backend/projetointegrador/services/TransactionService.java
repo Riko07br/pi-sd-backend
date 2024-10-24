@@ -5,6 +5,7 @@ import com.backend.projetointegrador.domain.dtos.TransactionResponseDTO;
 import com.backend.projetointegrador.domain.entities.Balance;
 import com.backend.projetointegrador.domain.entities.Transaction;
 import com.backend.projetointegrador.domain.mappers.TransactionMapper;
+import com.backend.projetointegrador.domain.queryParams.PaginationParams;
 import com.backend.projetointegrador.repositories.TransactionRepository;
 import com.backend.projetointegrador.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

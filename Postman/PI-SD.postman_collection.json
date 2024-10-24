@@ -114,6 +114,18 @@
 							],
 							"path": [
 								"users"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -255,6 +267,18 @@
 							],
 							"path": [
 								"accounts"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -396,6 +420,18 @@
 							],
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -537,6 +573,18 @@
 							],
 							"path": [
 								"investments"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -683,6 +731,18 @@
 							],
 							"path": [
 								"transactions"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -803,6 +863,39 @@
 						"localhost"
 					],
 					"port": "8080"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Probe - Test connection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/auth/probe",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"probe"
+					]
 				}
 			},
 			"response": []
