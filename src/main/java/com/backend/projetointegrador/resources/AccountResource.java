@@ -1,11 +1,11 @@
 package com.backend.projetointegrador.resources;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.AccountRequestDTO;
 import com.backend.projetointegrador.domain.dtos.AccountResponseDTO;
 import com.backend.projetointegrador.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,8 +27,8 @@ public class AccountResource {
     private final AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<Page<AccountResponseDTO>> findAll(Pageable pageable) {
-        Page<AccountResponseDTO> accounts = accountService.findAll(pageable);
+    public ResponseEntity<Page<AccountResponseDTO>> findAll(PaginationParams paginationParams) {
+        Page<AccountResponseDTO> accounts = accountService.findAll(paginationParams);
         return ResponseEntity.ok().body(accounts);
     }
 

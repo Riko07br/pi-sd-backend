@@ -1,5 +1,6 @@
 package com.backend.projetointegrador.services;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.InvestmentBuyRequestDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentResponseDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentSellRequestDTO;
@@ -15,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,8 @@ public class InvestmentService {
     private final ProductService productService;
     private final TransactionService transactionService;
 
-    public Page<InvestmentResponseDTO> findAll(Authentication authentication, Pageable pageable) {
+    public Page<InvestmentResponseDTO> findAll(Authentication authentication, PaginationParams paginationParams) {
+        Pageable pageable = PageRequest.of(paginationParams.getPage(), paginationParams.getSize());
         Long accountId = userService.findEntityByEmail(authentication.getName()).getAccount().getId();
         return investmentRepository.findByAccountId(accountId, pageable)
                 .map(investment -> {

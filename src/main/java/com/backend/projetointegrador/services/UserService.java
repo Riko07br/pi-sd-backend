@@ -1,5 +1,6 @@
 package com.backend.projetointegrador.services;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.UserRequestDTO;
 import com.backend.projetointegrador.domain.dtos.UserResponseDTO;
 import com.backend.projetointegrador.domain.entities.Role;
@@ -12,10 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +25,8 @@ public class UserService {
 
     private final RoleService roleService;
 
-    public Page<UserResponseDTO> findAll(Pageable pageable) {
-        //TODO add pagination
+    public Page<UserResponseDTO> findAll(PaginationParams paginationParams) {
+        Pageable pageable = PageRequest.of(paginationParams.getPage(), paginationParams.getSize());
         return userRepository.findAll(pageable).map(UserMapper::toResponseDTO);
     }
 

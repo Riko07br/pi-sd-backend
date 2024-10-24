@@ -1,13 +1,12 @@
 package com.backend.projetointegrador.resources;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.InvestmentBuyRequestDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentResponseDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentSellRequestDTO;
 import com.backend.projetointegrador.services.InvestmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,12 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/investments")
@@ -30,8 +27,8 @@ public class InvestmentResource {
     private final InvestmentService investmentService;
 
     @GetMapping
-    public ResponseEntity<Page<InvestmentResponseDTO>> findAll(Authentication authentication, Pageable pageable) {
-        Page<InvestmentResponseDTO> investments = investmentService.findAll(authentication, pageable);
+    public ResponseEntity<Page<InvestmentResponseDTO>> findAll(Authentication authentication, PaginationParams paginationParams) {
+        Page<InvestmentResponseDTO> investments = investmentService.findAll(authentication, paginationParams);
         return ResponseEntity.ok().body(investments);
     }
 

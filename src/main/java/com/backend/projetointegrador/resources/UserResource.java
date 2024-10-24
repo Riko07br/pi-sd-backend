@@ -1,11 +1,11 @@
 package com.backend.projetointegrador.resources;
 
+import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.UserRequestDTO;
 import com.backend.projetointegrador.domain.dtos.UserResponseDTO;
 import com.backend.projetointegrador.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -27,8 +26,8 @@ public class UserResource {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
-        Page<UserResponseDTO> users = userService.findAll(pageable);
+    public ResponseEntity<Page<UserResponseDTO>> findAll(PaginationParams paginationParams) {
+        Page<UserResponseDTO> users = userService.findAll(paginationParams);
         return ResponseEntity.ok().body(users);
     }
 
