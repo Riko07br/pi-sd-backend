@@ -1,6 +1,6 @@
 package com.backend.projetointegrador.services;
 
-import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
+import com.backend.projetointegrador.domain.queryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.AccountRequestDTO;
 import com.backend.projetointegrador.domain.dtos.AccountResponseDTO;
 import com.backend.projetointegrador.domain.entities.Account;
@@ -17,8 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
