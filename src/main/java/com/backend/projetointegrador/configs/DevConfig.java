@@ -7,7 +7,6 @@ import com.backend.projetointegrador.domain.entities.Role;
 import com.backend.projetointegrador.domain.entities.Transaction;
 import com.backend.projetointegrador.domain.entities.User;
 import com.backend.projetointegrador.repositories.AccountRepository;
-import com.backend.projetointegrador.repositories.BalanceRepository;
 import com.backend.projetointegrador.repositories.InvestmentRepository;
 import com.backend.projetointegrador.repositories.ProductRepository;
 import com.backend.projetointegrador.repositories.RoleRepository;
@@ -23,7 +22,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 @Configuration
-@Profile("dev")
+@Profile({"dev", "seed"})
 public class DevConfig implements CommandLineRunner {
     @Autowired
     private AccountRepository accountRepository;
@@ -61,9 +60,7 @@ public class DevConfig implements CommandLineRunner {
         t1.getBalance().addBalance(1020f);
         transactionRepository.save(t1);
         Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", 0f, u4));
-        //transactionRepository.save(new Transaction(null, 4800f, "DEPOSIT", acc2.getBalance()));
         Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", 0f, u5));
-        //transactionRepository.save(new Transaction(null, 10000f, "DEPOSIT", acc3.getBalance()));
 
         Product p1 = productRepository.save(new Product(null, "Pix Buzzard 30 dias", .001f));
         Product p2 = productRepository.save(new Product(null, "Pix Buzzard 60 dias", .0015f));

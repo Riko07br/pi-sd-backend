@@ -1,6 +1,6 @@
 package com.backend.projetointegrador.services;
 
-import com.backend.projetointegrador.domain.QueryParams.PaginationParams;
+import com.backend.projetointegrador.domain.queryParams.PaginationParams;
 import com.backend.projetointegrador.domain.dtos.InvestmentBuyRequestDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentResponseDTO;
 import com.backend.projetointegrador.domain.dtos.InvestmentSellRequestDTO;

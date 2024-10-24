@@ -1,10 +1,13 @@
-package com.backend.projetointegrador.domain.QueryParams;
+package com.backend.projetointegrador.domain.queryParams;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.io.Serial;
 import java.io.Serializable;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class PaginationParams implements Serializable {
@@ -14,7 +17,4 @@ public class PaginationParams implements Serializable {
     private Integer page = 0;
     private Integer size = 10;
 
-    public PaginationParams() {
-    
-    }
 }
