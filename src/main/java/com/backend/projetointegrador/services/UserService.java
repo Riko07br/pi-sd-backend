@@ -8,6 +8,7 @@ import com.backend.projetointegrador.domain.entities.User;
 import com.backend.projetointegrador.domain.mappers.UserMapper;
 import com.backend.projetointegrador.repositories.UserRepository;
 import com.backend.projetointegrador.security.SecurityConfiguration;
+import com.backend.projetointegrador.services.exceptions.InvalidArgsException;
 import com.backend.projetointegrador.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +39,9 @@ public class UserService {
     }
 
     public UserResponseDTO create(UserRequestDTO dto, String authority) {
+        if (userRepository.findByEmail(dto.email()).isPresent())
+            throw new InvalidArgsException("Email already in use");
+
         Role role = roleService.findByAuthority(authority);
 
         User user = new User(null,
@@ -48,6 +54,9 @@ public class UserService {
 
     public UserResponseDTO update(Long id, UserRequestDTO dto) {
         User user = findEntityById(id);
+        Optional<User> userOptional = userRepository.findByEmail(dto.email());
+        if (userOptional.isPresent() && !user.equals(userOptional.get()))
+            throw new InvalidArgsException("Email already in use");
 
         user.setEmail(dto.email());
         user.setPassword(securityConfiguration.passwordEncoder().encode(dto.password()));
