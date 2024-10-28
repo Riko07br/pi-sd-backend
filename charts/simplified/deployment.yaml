@@ -17,4 +17,4 @@ spec:
       containers:
         - name: pi-sd-backend
           image: "riko07/pi-sd-backend:0.5.3-SNAPSHOT"
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
