@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 @Configuration
@@ -53,14 +54,14 @@ public class DevConfig implements CommandLineRunner {
         User u5 = userRepository.save(new User(null, "user5@mail.com", password, clientRole));
         User u6 = userRepository.save(new User(null, "user6@mail.com", password, clientRole));
 
-        Account acc1 = accountRepository.save(new Account(null, "Cliente da Silva", "123456", 0f, u3));
+        Account acc1 = accountRepository.save(new Account(null, "Cliente da Silva", "123456", "11912345678", LocalDate.of(1999, 10, 30), 0f, u3));
         Transaction t1 = new Transaction(null, 1020f, "DEPOSIT");
         transactionRepository.save(t1);
         t1.setBalance(acc1.getBalance());
         t1.getBalance().addBalance(1020f);
         transactionRepository.save(t1);
-        Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", 0f, u4));
-        Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", 0f, u5));
+        Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", "11912346678", LocalDate.of(2000, 3, 28), 0f, u4));
+        Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", "11912347678", LocalDate.of(2001, 8, 13), 0f, u5));
 
         Product p1 = productRepository.save(new Product(null, "Pix Buzzard 30 dias", .001f));
         Product p2 = productRepository.save(new Product(null, "Pix Buzzard 60 dias", .0015f));

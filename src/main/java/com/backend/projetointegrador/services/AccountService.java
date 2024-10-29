@@ -43,6 +43,8 @@ public class AccountService {
         Account account = new Account(null,
                 dto.name(),
                 dto.document(),
+                dto.telephone(),
+                dto.dateOfBirth(),
                 0f,
                 user);
 
