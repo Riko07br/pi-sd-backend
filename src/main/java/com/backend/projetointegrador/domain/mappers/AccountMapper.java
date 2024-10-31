@@ -8,6 +8,8 @@ public class AccountMapper {
         return new AccountResponseDTO(account.getId(),
                 account.getName(),
                 account.getDocument(),
+                account.getTelephone(),
+                account.getDateOfBirth(),
                 account.getBalance().getAmount(),
                 UserMapper.toResponseDTO(account.getUser())
         );

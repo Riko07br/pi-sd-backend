@@ -15,6 +15,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +33,8 @@ public class Account implements Serializable {
     private Long id;
     private String name;
     private String document;
+    private String telephone;
+    private LocalDate dateOfBirth;
 
     @OneToOne
     private User user;
@@ -41,10 +44,12 @@ public class Account implements Serializable {
     @Setter(AccessLevel.NONE)
     private Set<Investment> investments = new HashSet<>();
 
-    public Account(Long id, String name, String document, Float balance, User user) {
+    public Account(Long id, String name, String document, String telephone, LocalDate dateOfBirth, Float balance, User user) {
         this.id = id;
         this.name = name;
         this.document = document;
+        this.telephone = telephone;
+        this.dateOfBirth = dateOfBirth;
         this.user = user;
         this.balance = new Balance(balance, this);
     }

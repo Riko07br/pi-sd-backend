@@ -43,6 +43,8 @@ public class AccountService {
         Account account = new Account(null,
                 dto.name(),
                 dto.document(),
+                dto.telephone(),
+                dto.dateOfBirth(),
                 0f,
                 user);
 
@@ -54,6 +56,8 @@ public class AccountService {
 
         account.setName(dto.name());
         account.setDocument(dto.document());
+        account.setTelephone(dto.telephone());
+        account.setDateOfBirth(dto.dateOfBirth());
         return AccountMapper.toResponseDTO(accountRepository.save(account));
     }
 
