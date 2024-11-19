@@ -7,7 +7,8 @@ public class ProductMapper {
     public static ProductResponseDTO toResponseDTO(Product product) {
         return new ProductResponseDTO(product.getId(),
                 product.getName(),
-                product.getDailyYield()
+                product.getDailyYield(),
+                product.getDescription()
         );
     }
 }

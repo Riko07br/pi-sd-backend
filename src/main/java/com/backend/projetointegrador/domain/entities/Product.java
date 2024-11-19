@@ -30,15 +30,17 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private Float dailyYield;
+    private String description;
 
     @OneToMany(mappedBy = "product")
     @Setter(AccessLevel.NONE)
     private Set<Investment> investments = new HashSet<>();
 
-    public Product(Long id, String name, Float dailyYield) {
+    public Product(Long id, String name, Float dailyYield, String description) {
         this.id = id;
         this.name = name;
         this.dailyYield = dailyYield;
+        this.description = description;
     }
 
     @Override
