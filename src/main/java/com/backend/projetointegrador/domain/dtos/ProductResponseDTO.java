@@ -3,6 +3,7 @@ package com.backend.projetointegrador.domain.dtos;
 public record ProductResponseDTO(
         Long id,
         String name,
-        Float dailyYield
+        Float dailyYield,
+        String description
 ) {
 }

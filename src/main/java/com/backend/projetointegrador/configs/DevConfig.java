@@ -63,10 +63,15 @@ public class DevConfig implements CommandLineRunner {
         Account acc2 = accountRepository.save(new Account(null, "Ronilso Junior Junior", "123456", "11912346678", LocalDate.of(2000, 3, 28), 0f, u4));
         Account acc3 = accountRepository.save(new Account(null, "Account 3", "123456", "11912347678", LocalDate.of(2001, 8, 13), 0f, u5));
 
-        Product p1 = productRepository.save(new Product(null, "Pix Buzzard 30 dias", .001f));
-        Product p2 = productRepository.save(new Product(null, "Pix Buzzard 60 dias", .0015f));
-        Product p3 = productRepository.save(new Product(null, "Pix Buzzard 90 dias", .002f));
-        Product p4 = productRepository.save(new Product(null, "Poupança programada 360 dias", .005f));
+        Product p1 = productRepository.save(new Product(null, "Pix Buzzard 30 dias", .001f, "Serviço exclusivo para acompanhar todas as movimentações do Pix Buzzard por 30 dias. Ideal para quem busca insights financeiros detalhados e em tempo real."));
+        Product p2 = productRepository.save(new Product(null, "Pix Buzzard 60 dias", .0015f, "Extensão do serviço Pix Buzzard com duração de 60 dias. Mais tempo para monitorar e analisar movimentações financeiras com praticidade e precisão."));
+        Product p3 = productRepository.save(new Product(null, "Pix Buzzard 90 dias", .002f, "Acompanhe todas as movimentações do Pix Buzzard por 90 dias. Solução ideal para controle financeiro prolongado e estratégico."));
+        Product p4 = productRepository.save(new Product(null, "Poupança programada 360 dias", .005f, "Planeje e poupe de forma inteligente com nosso serviço de poupança programada para 360 dias. Segurança e rentabilidade ao seu alcance."));
+        Product p5 = productRepository.save(new Product(null, "Investimento Flex 120 dias", .003f, "Flexibilidade e segurança em um plano de investimento de 120 dias. Ideal para objetivos de curto a médio prazo."));
+        Product p6 = productRepository.save(new Product(null, "Pix Turbo 15 dias", .0005f, "Monitoramento intensivo e acelerado de movimentações Pix por 15 dias. Rápido, eficiente e acessível."));
+        Product p7 = productRepository.save(new Product(null, "Rendimento Garantido 180 dias", .004f, "Aumente seu patrimônio com nosso serviço de rendimento garantido por 180 dias. A escolha certa para crescimento financeiro."));
+        Product p8 = productRepository.save(new Product(null, "Poupança Avançada 720 dias", .005f, "Uma solução robusta para poupar e crescer. Poupança planejada para 720 dias com segurança e alta rentabilidade."));
+        Product p9 = productRepository.save(new Product(null, "Pix Observer 45 dias", .0012f, "Acompanhe movimentações Pix com detalhes por 45 dias. Perfeito para análises financeiras específicas e detalhadas."));
 
         Investment i1 = investmentRepository.save(new Investment(null, 100f, getPastDate(10), acc1, p1));
         Investment i2 = investmentRepository.save(new Investment(null, 200f, getPastDate(4), acc1, p2));
